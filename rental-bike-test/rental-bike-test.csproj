@@ -50,8 +50,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Booking.cs" />
+    <Compile Include="BookingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\rental-bike\rental-bike.csproj">
+      <Project>{c2dab191-3e7b-4401-83ac-3a634337dee9}</Project>
+      <Name>rental-bike</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
