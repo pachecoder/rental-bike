@@ -13,7 +13,7 @@ namespace rental_bike
         public List<Bike> Bikes { get; set; }
         public RentType RentalType { get; set; }
         public double Price { get; set; }
-        
+        public bool ApplyFamilyDiscount { get; set; }
 
     }
 }

@@ -12,14 +12,19 @@ namespace rental_bike_test
 
         Booking booking = new Booking();
         BookOrder bookOrder = InitializeBookOrder();
+        List<RentType> rentType = InitializeRentTypeCollection();
+
         const double DISCOUNT = 0.3;
+
+
 
         [TestMethod]
         public void BookNewOrder()
         {
-            Assert.IsTrue(true);
+            Assert.AreEqual("Record saved, Customer Cosme Fulanito has rented the quantity of 4 bikes, for this price: 14$. Apply Family Discount: True", booking.BookNewOrder(bookOrder));
         }
         
+
         [TestMethod]
         public void IsFamilyDiscount()
         {
@@ -57,6 +62,28 @@ namespace rental_bike_test
             
         }
 
+        [TestMethod]
+        public void GetPrice()
+        {
+            double expected = 20.0;
+
+            int rentByDay = (int)Booking.Rent.Day;
+            RentType getPriceByRentType = rentType.Where(r => r.RentTypeId == rentByDay).First();
+            double getPrice = getPriceByRentType.Price;
+            Assert.AreEqual(expected, getPrice);
+        }
+
+
+        [TestMethod]
+        public void GetPriceByRentType()
+        {
+            double expected = 20.0;
+            
+            var rentByDay = Booking.Rent.Day;
+            double getPriceByRentType = booking.GetPriceByRentType(rentType, rentByDay); 
+            Assert.AreEqual(expected, getPriceByRentType);
+        }
+        
         private static BookOrder InitializeBookOrder()
         {
             //validate quantities of bikes to know if is Family Discount
@@ -67,7 +94,8 @@ namespace rental_bike_test
             }
 
             //initialize RentalType
-            RentType rentType = RentTypeCollection().First();
+            int rentByHour = (int) Booking.Rent.Hour;
+            RentType rentType = InitializeRentTypeCollection().Where(r => r.RentTypeId == rentByHour).First();
 
             //initialize Customer
             Customer customer = new Customer() { Ssn = "123456789", Name = "Cosme Fulanito" };
@@ -84,7 +112,7 @@ namespace rental_bike_test
             return bookOrder;
         }
 
-        private static List<RentType> RentTypeCollection()
+        private static List<RentType> InitializeRentTypeCollection()
         {
             return new List<RentType>
             {
