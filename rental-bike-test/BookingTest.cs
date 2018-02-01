@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using rental_bike;
 using System.Linq;
+using System.Reflection;
 
 namespace rental_bike_test
 {
@@ -83,7 +84,54 @@ namespace rental_bike_test
             double getPriceByRentType = booking.GetPriceByRentType(rentType, rentByDay); 
             Assert.AreEqual(expected, getPriceByRentType);
         }
-        
+
+        [TestMethod()]
+        public void TestPropertiesBike()
+        {
+            Bike bike = new Bike() { Color = "White", Frame = "Men", Rim = 26};
+
+            Assert.AreEqual("White", bike.Color);
+            Assert.AreEqual("Men", bike.Frame);
+            Assert.AreEqual(26, bike.Rim);
+        }
+
+        [TestMethod()]
+        public void TestPropertiesRentType()
+        {
+            RentType rentTypeTest = new RentType
+            {
+                RentTypeId = 1,
+                Description = "Hour",
+                Price = 5.0
+            };
+
+            Assert.AreEqual(1, rentTypeTest.RentTypeId);
+            Assert.AreEqual("Hour", rentTypeTest.Description);
+            Assert.AreEqual(5.0, rentTypeTest.Price);
+        }
+
+        [TestMethod()]
+        public void TestPropertiesCustomer()
+        {
+            Customer customer = new Customer
+            {
+                Ssn = "123456789",
+                Name = "Cosme Fulanito"
+            };
+
+            Assert.AreEqual("123456789", customer.Ssn);
+            Assert.AreEqual("Cosme Fulanito", customer.Name);
+        }
+
+        [TestMethod()]
+        public void TestPropertiesBookOrder()
+        {
+            BookOrder book = new BookOrder
+            {
+                id = 123456789
+            };
+            Assert.AreEqual(123456789, book.id);
+        }
         private static BookOrder InitializeBookOrder()
         {
             //validate quantities of bikes to know if is Family Discount
